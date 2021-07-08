@@ -1,1 +1,31 @@
-<p>article-list works!</p>
+<table class="table">
+  <thead>
+    <tr class="table-secondary">
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Author</th>
+      <th scope="col">Tags</th>
+      <th scope="col">Excerpt</th>
+      <th scope="col">Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let article of articles; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ article.title }}</td>
+      <td>{{ article?.author.username }}</td>
+      <td>{{ article.tagList }}</td>
+      <td></td>
+      <td>
+        {{ article.createdAt | date }}
+        <div class="dropdown">
+          <button class="btn btn-info dropdown-toggle">...</button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">Edit</a></li>
+            <li><a class="dropdown-item" href="#">Delete</a></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
