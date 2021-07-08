@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'r1c-article-form',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./article-form.component.scss']
 })
 export class ArticleFormComponent implements OnInit {
+  @Input() isEditMode: boolean = false;
 
   constructor() { }
 

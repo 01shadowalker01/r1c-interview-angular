@@ -1,1 +1,31 @@
-<p>article-form works!</p>
+<h1>
+  <ng-container *ngIf="!isEditMode; else showEditTxt">New </ng-container>
+  <ng-template #showEditTxt>Edit </ng-template>
+  Article
+</h1>
+<div class="row">
+  <div class="col-9">
+    <div class="mb-3">
+      <label for="title" class="form-label"> Title </label>
+      <input type="text" class="form-control" id="title" placeholder="Title" />
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label"> Description </label>
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        placeholder="Description"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="body" class="form-label"> Body </label>
+      <textarea class="form-control" id="body" rows="7"></textarea>
+    </div>
+    <button type="button" class="btn btn-primary">Submit</button>
+  </div>
+
+  <div class="col-3">
+    <r1c-tag-list></r1c-tag-list>
+  </div>
+</div>
