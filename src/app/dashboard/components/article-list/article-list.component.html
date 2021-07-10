@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let article of articles; let i = index">
+    <tr *ngFor="let article of articles$ | async; let i = index">
       <td>{{ i + 1 }}</td>
       <td>{{ article.title }}</td>
       <td>{{ article?.author.username }}</td>
