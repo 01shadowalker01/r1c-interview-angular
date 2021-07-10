@@ -1,1 +1,24 @@
-<p>register works!</p>
+<div class="register-wrapper">
+  <div class="register-box">
+    <h1 class="register-title">Register</h1>
+    <form>
+      <div class="mb-4">
+        <label for="user" class="form-label"> User </label>
+        <input id="user" type="text" class="form-control" />
+      </div>
+      <div class="mb-4">
+        <label for="email" class="form-label"> Email </label>
+        <input id="email" type="email" class="form-control" />
+      </div>
+      <div class="password-wrapper">
+        <label for="password" class="form-label"> Password </label>
+        <input type="password" class="form-control" id="password" />
+      </div>
+
+      <button type="submit" class="btn btn-primary mb-3">Register</button>
+    </form>
+    <p class="login-message">
+      Already Registered? <strong routerLink="/login">Login </strong>
+    </p>
+  </div>
+</div>

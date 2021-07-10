@@ -1,1 +1,20 @@
-<p>login works!</p>
+<div class="login-wrapper">
+  <div class="login-box">
+    <h1 class="login-title">LOGIN</h1>
+    <form>
+      <div class="mb-4">
+        <label for="email" class="form-label"> Email </label>
+        <input id="email" type="email" class="form-control" />
+      </div>
+      <div class="password-wrapper">
+        <label for="password" class="form-label"> Password </label>
+        <input type="password" class="form-control" id="password" />
+      </div>
+
+      <button type="submit" class="btn btn-primary mb-3">Login</button>
+    </form>
+    <p class="register-message">
+      Don’t have account? <strong routerLink="/register">Register Now</strong>
+    </p>
+  </div>
+</div>
