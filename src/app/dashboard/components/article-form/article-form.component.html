@@ -4,10 +4,16 @@
   Article
 </h1>
 <div class="row">
-  <div class="col-9">
+  <form class="col-9" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="mb-3">
       <label for="title" class="form-label"> Title </label>
-      <input type="text" class="form-control" id="title" placeholder="Title" />
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        formControlName="title"
+        placeholder="Title"
+      />
     </div>
     <div class="mb-3">
       <label for="description" class="form-label"> Description </label>
@@ -15,15 +21,27 @@
         type="text"
         class="form-control"
         id="description"
+        formControlName="description"
         placeholder="Description"
       />
     </div>
     <div class="mb-3">
       <label for="body" class="form-label"> Body </label>
-      <textarea class="form-control" id="body" rows="7"></textarea>
+      <textarea
+        class="form-control"
+        id="body"
+        rows="7"
+        formControlName="body"
+      ></textarea>
     </div>
-    <button type="button" class="btn btn-primary">Submit</button>
-  </div>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="form.invalid || loading"
+    >
+      Submit
+    </button>
+  </form>
 
   <div class="col-3">
     <r1c-tag-list></r1c-tag-list>
