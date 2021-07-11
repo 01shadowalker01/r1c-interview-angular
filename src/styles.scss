@@ -1,6 +1,34 @@
-@import url("../node_modules/bootstrap/dist/css/bootstrap.min.css");
-
 @import "./variables.scss";
+
+//override colors
+$primary: #1c7cd5;
+$info: #5bc0de;
+
+@import "bootstrap";
+
+@import "assets/fonts/Pragmatica/font.css";
+
+html,
+body {
+  height: 100%;
+}
+
+body,
+table.table {
+  color: var(--charcoal-grey);
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+textarea {
+  font-family: "Pragmatica-Medium" !important;
+}
 
 .form-label {
   color: var(--charcoal-grey);
