@@ -6,7 +6,7 @@ $info: #5bc0de;
 
 @import "bootstrap";
 
-@import "assets/fonts/Pragmatica/font.css";
+@import "assets/fonts/FreeSans/font.css";
 
 html,
 body {
@@ -27,7 +27,7 @@ h5,
 h6,
 input,
 textarea {
-  font-family: "Pragmatica-Medium" !important;
+  font-family: "FreeSans";
 }
 
 .form-label {
