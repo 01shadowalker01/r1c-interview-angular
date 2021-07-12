@@ -1,10 +1,10 @@
 <div class="header">
   <div class="right-side">
     <h1 class="site-title">Arvan Challenge</h1>
-    <p>Welcome ( username )</p>
+    <p>Welcome {{ (userService.currentUser | async)?.username }}</p>
   </div>
   <div class="left-side">
-    <button class="btn btn-outline-info">Logout</button>
+    <button class="btn btn-outline-info" (click)="onLogout()">Logout</button>
   </div>
 </div>
 

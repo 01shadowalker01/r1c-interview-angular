@@ -5,3 +5,11 @@ export interface User {
   bio: string;
   image: string;
 }
+
+export const UNDEFINED_USER: User = {
+  email: null,
+  token: null,
+  username: null,
+  bio: null,
+  image: null,
+};
