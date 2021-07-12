@@ -1,0 +1,44 @@
+$break-small: 576px;
+
+:host {
+  display: block;
+  position: relative;
+}
+
+.close-button {
+  border: 0;
+  background: none;
+  position: absolute;
+  font-size: 1.6rem;
+  top: 0.5rem;
+  right: 0.8rem;
+  line-height: 0.6;
+  font-weight: bold;
+  opacity: 0.3;
+  color: inherit;
+  cursor: pointer;
+
+  @media (min-width: $break-small) {
+    font-size: 1rem;
+    top: 0.3rem;
+    right: 0.4rem;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.content-body {
+  padding: 0.5rem 2.2rem 0.5rem 0.5rem;
+  font-size: 0.85rem;
+  min-height: 1rem;
+
+  @media (min-width: $break-small) {
+    padding-right: 1rem;
+  }
+
+  .title {
+    font-weight: bold;
+  }
+}
