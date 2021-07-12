@@ -12,8 +12,14 @@
   <div class="col-2">
     <div class="sidebar bg-primary">
       <h4>Post</h4>
-      <a routerLink="/articles" class="active">All Articles</a>
-      <a routerLink="/articles/create">New Article</a>
+      <a
+        routerLink="/articles"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        All Articles
+      </a>
+      <a routerLink="/articles/create" routerLinkActive="active">New Article</a>
     </div>
   </div>
   <div class="col-10 content p-0">
