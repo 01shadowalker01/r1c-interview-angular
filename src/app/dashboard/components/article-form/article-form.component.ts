@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { BaseService } from "src/app/core/services";
+import { Toaster } from "src/app/shared/toast-notification";
 
 @Component({
   selector: "r1c-article-form",
@@ -21,6 +22,7 @@ export class ArticleFormComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private fb: FormBuilder,
+    public toaster: Toaster,
     private baseService: BaseService,
   ) {
     this.initForm();
@@ -47,10 +49,21 @@ export class ArticleFormComponent implements OnInit, OnDestroy {
         () => {
           this.loading = false;
           this.router.navigate(["/articles"]);
+          const message = `Well done! Article ${
+            this.isEditMode ? "updated" : "created"
+          } successfuly`;
+          this.toaster.open({
+            type: "success",
+            text: message,
+          });
         },
         err => {
           this.loading = false;
-          console.log(err);
+          this.toaster.open({
+            type: "danger",
+            caption: "Error happend",
+            text: err,
+          });
         },
       );
     }
