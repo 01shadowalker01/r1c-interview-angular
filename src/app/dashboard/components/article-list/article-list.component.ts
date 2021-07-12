@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { Article } from "src/app/core/models";
 import { BaseService } from "src/app/core/services";
+import { Toaster } from "src/app/shared/toast-notification";
 
 @Component({
   selector: "r1c-article-list",
@@ -12,7 +13,11 @@ import { BaseService } from "src/app/core/services";
 export class ArticleListComponent implements OnInit {
   articles$: Observable<Article[]>;
 
-  constructor(private baseService: BaseService, private renderer: Renderer2) {}
+  constructor(
+    private toaster: Toaster,
+    private renderer: Renderer2,
+    private baseService: BaseService,
+  ) {}
 
   ngOnInit(): void {
     this.getArticles();
@@ -31,6 +36,26 @@ export class ArticleListComponent implements OnInit {
       } else {
         this.renderer.addClass(dropdown, "show");
       }
+    }
+  }
+
+  onDelete(article: Article) {
+    if (confirm("Are you sure to delete Article?")) {
+      this.baseService.delete$("articles/" + article.slug).subscribe(
+        () => {
+          this.toaster.open({
+            type: "success",
+            text: "Article deleted successfuly",
+          });
+          this.getArticles();
+        },
+        err => {
+          this.toaster.open({
+            type: "danger",
+            text: err.message,
+          });
+        },
+      );
     }
   }
 }

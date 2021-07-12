@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       { path: "", component: ArticleListComponent },
       { path: "create", component: ArticleFormComponent },
-      { path: "edit", component: ArticleFormComponent },
+      { path: "edit/:slug", component: ArticleFormComponent },
     ],
   },
 ];

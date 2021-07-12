@@ -26,10 +26,23 @@
       <td class="action-cell">
         {{ article.createdAt | date }}
         <div class="dropdown">
-          <button class="btn btn-info dropdown-toggle" (click)="toggleDropdown(dropdown)">...</button>
-          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu" #dropdown>
-            <li><a class="dropdown-item" href="#">Edit</a></li>
-            <li><a class="dropdown-item" href="#">Delete</a></li>
+          <button
+            class="btn btn-info dropdown-toggle"
+            (click)="toggleDropdown(dropdown)"
+          >
+            ...
+          </button>
+          <ul
+            class="dropdown-menu dropdown-menu-right"
+            aria-labelledby="dropdownMenu"
+            #dropdown
+          >
+            <li>
+              <a class="dropdown-item" [routerLink]="['edit', article.slug]">
+                Edit
+              </a>
+            </li>
+            <li><a class="dropdown-item" (click)="onDelete(article)">Delete</a></li>
           </ul>
         </div>
       </td>
