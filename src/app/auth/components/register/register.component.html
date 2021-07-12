@@ -1,18 +1,40 @@
 <div class="register-wrapper">
   <div class="register-box">
     <h1 class="register-title">Register</h1>
-    <form>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="mb-4">
         <label for="user" class="form-label"> User </label>
-        <input id="user" type="text" class="form-control" />
+        <input
+          id="user"
+          required
+          type="text"
+          class="form-control"
+          formControlName="username"
+        />
+        <div
+          class="invalid-feedback"
+          *ngIf="form.controls.username.hasError('required')"
+        >
+          Required field
+        </div>
       </div>
       <div class="mb-4">
         <label for="email" class="form-label"> Email </label>
-        <input id="email" type="email" class="form-control" />
+        <input
+          id="email"
+          type="email"
+          class="form-control"
+          formControlName="email"
+        />
       </div>
       <div class="password-wrapper">
         <label for="password" class="form-label"> Password </label>
-        <input type="password" class="form-control" id="password" />
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+        />
       </div>
 
       <button type="submit" class="btn btn-primary mb-3">Register</button>

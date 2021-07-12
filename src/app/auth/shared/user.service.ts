@@ -22,11 +22,15 @@ export class UserService {
   login(user: LoginModel) {
     const url = this.BASE_URL + "users/login";
     this.http
-      .post(url, { user })
+      .post<any>(url, { user })
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(
-        () => {
-          this.router.navigate(["/articles"]);
+        ({ user }) => {
+          if (user) {
+            // TODO: Replace localStorage & use another approach
+            localStorage.setItem("token", user.token);
+            this.router.navigate(["/articles"]);
+          }
         },
         err =>
           this.toaster.open({
@@ -37,7 +41,27 @@ export class UserService {
       );
   }
 
-  register() {}
+  register(user: RegisterModel) {
+    const url = this.BASE_URL + "users";
+    this.http
+      .post(url, { user })
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        () => {
+          this.toaster.open({
+            type: "success",
+            text: "You have registered successfully!",
+          });
+          this.router.navigate(["/login"]);
+        },
+        err =>
+          this.toaster.open({
+            type: "danger",
+            caption: "Registeration Failed!",
+            text: err.message,
+          }),
+      );
+  }
 
   unsubscribeAll() {
     this.unsubscribe.next();
@@ -46,6 +70,12 @@ export class UserService {
 }
 
 interface LoginModel {
+  email: string;
+  password: string;
+}
+
+interface RegisterModel {
+  username: string;
   email: string;
   password: string;
 }
