@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class BaseService {
-  private readonly BASE_URL = "https://conduit.productionready.io/api/";
+  private readonly BASE_URL = environment.baseURL;
 
   constructor(private http: HttpClient) {}
 
@@ -17,10 +18,26 @@ export class BaseService {
 
   post$(url: string, model) {
     const _url = this.BASE_URL + url;
+    const headers = this.getHeaders();
+    return this.http.post(_url, model, { headers });
+  }
+
+  put$(url: string, model) {
+    const _url = this.BASE_URL + url;
+    const headers = this.getHeaders();
+    return this.http.put(_url, model, { headers });
+  }
+
+  delete$(url: string) {
+    const _url = this.BASE_URL + url;
+    const headers = this.getHeaders();
+    return this.http.delete(_url, { headers });
+  }
+
+  private getHeaders(): HttpHeaders {
     const token = localStorage.getItem("token");
-    const headers = new HttpHeaders({
+    return new HttpHeaders({
       Authorization: "Token " + token,
     });
-    return this.http.post(_url, model, { headers });
   }
 }
