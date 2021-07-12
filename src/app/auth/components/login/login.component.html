@@ -1,14 +1,24 @@
 <div class="login-wrapper">
   <div class="login-box">
     <h1 class="login-title">LOGIN</h1>
-    <form>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="mb-4">
         <label for="email" class="form-label"> Email </label>
-        <input id="email" type="email" class="form-control" />
+        <input
+          id="email"
+          type="email"
+          class="form-control"
+          formControlName="email"
+        />
       </div>
       <div class="password-wrapper">
         <label for="password" class="form-label"> Password </label>
-        <input type="password" class="form-control" id="password" />
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+        />
       </div>
 
       <button type="submit" class="btn btn-primary mb-3">Login</button>
