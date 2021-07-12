@@ -19,9 +19,7 @@ export class UserService {
     private router: Router,
     private toaster: Toaster,
     private http: HttpClient,
-  ) {
-    this._currentUser.subscribe(x => console.log(x));
-  }
+  ) {}
 
   public get currentUser(): Observable<User> {
     return this._currentUser.asObservable();

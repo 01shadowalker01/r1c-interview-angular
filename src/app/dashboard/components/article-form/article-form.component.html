@@ -4,7 +4,7 @@
   Article
 </h1>
 <div class="row form-row">
-  <form class="col-9" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form class="col-9 pr-4" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="mb-3">
       <label for="title" class="form-label"> Title </label>
       <input
@@ -50,6 +50,28 @@
   </form>
 
   <div class="col-3">
-    <r1c-tag-list></r1c-tag-list>
+    <div class="mb-3">
+      <label for="newTag" class="form-label">Tags</label>
+      <input
+        type="text"
+        class="form-control"
+        id="newTag"
+        placeholder="New tag"
+      />
+    </div>
+    <div class="tag-list">
+      <div class="form-check" *ngFor="let tag of tags">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="flexCheckChecked"
+        />
+        <label class="form-check-label" for="flexCheckChecked">
+          {{ tag }}
+        </label>
+      </div>
+
+    </div>
   </div>
 </div>

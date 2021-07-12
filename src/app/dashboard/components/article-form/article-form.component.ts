@@ -121,9 +121,9 @@ export class ArticleFormComponent implements OnInit, OnDestroy {
 
   private getTagList() {
     this.baseService
-      .get$("tags")
+      .get$<{ tags: string[] }>("tags")
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(({ tags }) => (this.tags = tags));
+      .subscribe(({ tags }) => (this.tags = tags.sort()));
   }
 
   ngOnDestroy() {
