@@ -1,9 +1,9 @@
-<h1>
+<h1 class="title">
   <ng-container *ngIf="!isEditMode; else showEditTxt">New </ng-container>
   <ng-template #showEditTxt>Edit </ng-template>
   Article
 </h1>
-<div class="row">
+<div class="row form-row">
   <form class="col-9" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="mb-3">
       <label for="title" class="form-label"> Title </label>

@@ -1,6 +1,6 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { BaseService } from "src/app/core/services";
@@ -12,24 +12,27 @@ import { Toaster } from "src/app/shared/toast-notification";
   styleUrls: ["./article-form.component.scss"],
 })
 export class ArticleFormComponent implements OnInit, OnDestroy {
-  @Input() isEditMode: boolean = false;
-
   form: FormGroup;
   tags: string[];
   loading: boolean = false;
+  isEditMode: boolean = false;
   private unsubscribe = new Subject();
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     public toaster: Toaster,
+    private route: ActivatedRoute,
     private baseService: BaseService,
   ) {
     this.initForm();
+    this.getFormMode();
   }
 
   ngOnInit(): void {
-    if (!this.isEditMode) {
+    if (this.isEditMode) {
+      this.getArticle();
+    } else {
       this.getTagList();
     }
   }
@@ -42,34 +45,81 @@ export class ArticleFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmit() {
-    if (this.form.valid) {
-      this.loading = true;
-      this.baseService.post$("articles", this.form.value).subscribe(
-        () => {
+  getFormMode() {
+    this.isEditMode = this.route.snapshot.url[0].path == "edit";
+  }
+
+  getArticle() {
+    this.loading = true;
+    const slug = this.route.snapshot.paramMap.get("slug");
+    if (slug) {
+      this.baseService
+        .get$("articles/" + slug)
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe(({ article }) => {
           this.loading = false;
-          this.router.navigate(["/articles"]);
-          const message = `Well done! Article ${
-            this.isEditMode ? "updated" : "created"
-          } successfuly`;
-          this.toaster.open({
-            type: "success",
-            text: message,
+          this.form.setValue({
+            title: article.title,
+            description: article.description,
+            body: article.body,
           });
-        },
-        err => {
-          this.loading = false;
-          this.toaster.open({
-            type: "danger",
-            caption: "Error happend",
-            text: err,
-          });
-        },
-      );
+        });
+    } else {
+      this.router.navigate(["/articles"]);
+      this.toaster.open({
+        type: "danger",
+        caption: "Error happend",
+        text: "Article not found",
+      });
     }
   }
 
-  getTagList() {
+  onSubmit() {
+    if (this.form.valid) {
+      this.loading = true;
+      if (this.isEditMode) {
+        const slug = this.route.snapshot.paramMap.get("slug");
+        this.baseService
+          .put$("articles/" + slug, this.form.value)
+          .pipe(takeUntil(this.unsubscribe))
+          .subscribe(
+            this.onSubmitSuccess.bind(this),
+            this.onSubmitFailure.bind(this),
+          );
+      } else {
+        this.baseService
+          .post$("articles", this.form.value)
+          .pipe(takeUntil(this.unsubscribe))
+          .subscribe(
+            this.onSubmitSuccess.bind(this),
+            this.onSubmitFailure.bind(this),
+          );
+      }
+    }
+  }
+
+  private onSubmitSuccess() {
+    this.loading = false;
+    this.router.navigate(["/articles"]);
+    const message = `Well done! Article ${
+      this.isEditMode ? "updated" : "created"
+    } successfuly`;
+    this.toaster.open({
+      type: "success",
+      text: message,
+    });
+  }
+
+  private onSubmitFailure(err) {
+    this.loading = false;
+    this.toaster.open({
+      type: "danger",
+      caption: "Error happend",
+      text: err.message,
+    });
+  }
+
+  private getTagList() {
     this.baseService
       .get$("tags")
       .pipe(takeUntil(this.unsubscribe))
