@@ -1,0 +1,21 @@
+.title {
+  margin: 24px 0;
+}
+
+.table-header {
+  background-color: var(--silver);
+  border: 0;
+}
+
+.action-cell {
+  display: flex;
+  justify-content: space-evenly;
+
+  .btn {
+    color: white;
+  }
+}
+
+.show {
+  display: block;
+}

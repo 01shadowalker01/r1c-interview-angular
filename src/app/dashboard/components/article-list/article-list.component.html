@@ -1,6 +1,7 @@
+<h1 class="title">All Posts</h1>
 <table class="table">
   <thead>
-    <tr class="table-secondary">
+    <tr class="table-header">
       <th scope="col">#</th>
       <th scope="col">Title</th>
       <th scope="col">Author</th>
@@ -15,12 +16,18 @@
       <td>{{ article.title }}</td>
       <td>{{ article?.author.username }}</td>
       <td>{{ article.tagList }}</td>
-      <td></td>
       <td>
+        {{
+          article.body.length > 20
+            ? (article.body | slice: 0:20) + ".."
+            : article.body
+        }}
+      </td>
+      <td class="action-cell">
         {{ article.createdAt | date }}
         <div class="dropdown">
-          <button class="btn btn-info dropdown-toggle">...</button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <button class="btn btn-info dropdown-toggle" (click)="toggleDropdown(dropdown)">...</button>
+          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu" #dropdown>
             <li><a class="dropdown-item" href="#">Edit</a></li>
             <li><a class="dropdown-item" href="#">Delete</a></li>
           </ul>
