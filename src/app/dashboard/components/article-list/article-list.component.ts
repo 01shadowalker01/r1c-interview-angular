@@ -40,6 +40,7 @@ export class ArticleListComponent implements OnInit {
   }
 
   onDelete(article: Article) {
+    // TODO: confirm should bebbbeb replaced by a modal
     if (confirm("Are you sure to delete Article?")) {
       this.baseService.delete$("articles/" + article.slug).subscribe(
         () => {

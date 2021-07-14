@@ -35,6 +35,7 @@ export class BaseService {
   }
 
   private getHeaders(): HttpHeaders {
+    // TODO: Replace localStorage & use another approach
     const token = localStorage.getItem("token");
     return new HttpHeaders({
       Authorization: "Token " + token,
